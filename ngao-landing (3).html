@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGAO — AI Cybersecurity for Kenyan Businesses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9963A;
+      --gold-light: #F0C060;
+      --gold-pale: #F5E6C0;
+      --amber: #E07B20;
+      --dark: #0A0805;
+      --dark2: #120F08;
+      --dark3: #1C1710;
+      --ink: #EDE0C8;
+      --ink2: #B8A882;
+      --ink3: #7A6E58;
+      --border: rgba(201,150,58,0.18);
+      --border-strong: rgba(201,150,58,0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .heading { font-family: 'Cormorant Garamond', serif; }
+
+    /* ── HERO BACKGROUND ── */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=1800&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.35) saturate(0.8);
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(10,8,5,0.97) 45%, rgba(10,8,5,0.3) 100%),
+        linear-gradient(to top, rgba(10,8,5,1) 0%, transparent 40%);
+      z-index: 1;
+    }
+
+    .hero-gold-glow {
+      position: absolute;
+      bottom: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse, rgba(201,150,58,0.12) 0%, transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,8,5,0.7);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      transition: padding 0.3s;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-logo-mark {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .nav-logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--ink2);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      padding: 0.65rem 1.6rem;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: var(--dark);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+    .nav-cta:hover {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      box-shadow: 0 8px 30px rgba(201,150,58,0.35);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO CONTENT ── */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 4rem;
+      padding-top: 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(201,150,58,0.08);
+      border: 1px solid var(--border-strong);
+      border-radius: 100px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 2rem;
+    }
+
+    .hero-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(201,150,58,0.4); }
+      50% { opacity: 0.8; transform: scale(0.9); box-shadow: 0 0 0 8px rgba(201,150,58,0); }
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--ink2);
+      line-height: 1.8;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .btn-primary {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: var(--dark);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s;
+      text-transform: uppercase;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 12px 40px rgba(201,150,58,0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      padding: 1rem 2rem;
+      border: 1px solid var(--border-strong);
+      color: var(--ink2);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-transform: uppercase;
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .avatar-stack {
+      display: flex;
+    }
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--dark);
+      background: var(--dark3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      margin-left: -10px;
+      color: var(--gold-light);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+    }
+    .avatar:first-child { margin-left: 0; }
+
+    .proof-text p { font-size: 0.82rem; color: var(--ink); font-weight: 500; }
+    .proof-text span { font-size: 0.72rem; color: var(--gold); }
+
+    /* Hero right — Nairobi at dusk card */
+    .hero-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hero-city-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      height: 340px;
+    }
+
+    .hero-city-photo {
+      width: 100%; height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1680458842237-b5e63c2a5c5c?w=900&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.6) saturate(0.9);
+    }
+
+    .hero-city-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,8,5,0.9) 0%, transparent 60%);
+    }
+
+    .hero-city-label {
+      position: absolute;
+      bottom: 1.2rem; left: 1.5rem;
+    }
+
+    .hero-city-label p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .hero-city-label span {
+      font-size: 0.7rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .hero-alert-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .alert-card {
+      background: rgba(28,23,16,0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .alert-card-head {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .alert-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .alert-dot.red { background: #ef4444; }
+    .alert-dot.green { background: #22c55e; }
+    .alert-dot.amber { background: var(--gold); }
+
+    .alert-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .alert-label.red { color: #ef4444; }
+    .alert-label.green { color: #22c55e; }
+    .alert-label.amber { color: var(--gold-light); }
+
+    .alert-text { font-size: 0.72rem; color: var(--ink2); line-height: 1.4; }
+    .alert-time { font-size: 0.62rem; color: var(--ink3); margin-top: 0.3rem; }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 0;
+      overflow: hidden;
+    }
+
+    .ticker-inner {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 35s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 2.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+
+    .ticker-item.gold { color: var(--gold-light); }
+    .ticker-sep { color: var(--gold); font-size: 0.5rem; }
+
+    /* ── SECTIONS SHARED ── */
+    .section { padding: 7rem 4rem; max-width: 1400px; margin: 0 auto; }
+    .section-full { padding: 7rem 0; }
+
+    .eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--gold-light); }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--ink2);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* ── PROBLEM ── */
+    .problem-bg {
+      background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1800&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+    .problem-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,8,5,0.94);
+    }
+    .problem-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .stat-card {
+      background: rgba(28,23,16,0.8);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .stat-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--gold), var(--amber));
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label { font-size: 0.82rem; color: var(--ink2); line-height: 1.5; }
+
+    /* ── HOW IT WORKS ── */
+    .how-bg {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .step-card {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .step-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-6px);
+    }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      color: rgba(201,150,58,0.07);
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      line-height: 1;
+    }
+
+    .step-icon {
+      width: 52px; height: 52px;
+      background: rgba(201,150,58,0.1);
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .step-desc { font-size: 0.85rem; color: var(--ink2); line-height: 1.8; }
+
+    /* ── FEATURES ── */
+    .features-photo-strip {
+      width: 100%;
+      height: 300px;
+      background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=1800&q=80');
+      background-size: cover;
+      background-position: center 40%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .features-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,8,5,1) 0%, rgba(10,8,5,0.3) 40%, rgba(10,8,5,1) 100%);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .feature-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .feature-card.wide { grid-column: span 2; }
+
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-desc { font-size: 0.83rem; color: var(--ink2); line-height: 1.8; }
+
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+    }
+
+    .tag {
+      background: rgba(201,150,58,0.08);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.65rem;
+      color: var(--gold-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      background-image: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+    .pricing-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,8,5,0.93);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .pricing-card {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .pricing-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-6px);
+    }
+    .pricing-card.popular {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(201,150,58,0.1), var(--dark3));
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: var(--dark);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 1.2rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .plan-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .plan-price span { font-size: 1rem; color: var(--ink3); font-weight: 400; }
+    .plan-users { font-size: 0.75rem; color: var(--ink3); margin-bottom: 2rem; }
+
+    .plan-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--ink2);
+      line-height: 1.4;
+    }
+    .plan-features li i { color: var(--gold); flex-shrink: 0; margin-top: 0.15rem; }
+
+    .plan-cta {
+      display: block;
+      text-align: center;
+      padding: 0.9rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .plan-cta.outline {
+      border: 1px solid var(--border-strong);
+      color: var(--ink2);
+    }
+    .plan-cta.outline:hover { border-color: var(--gold); color: var(--gold-light); }
+    .plan-cta.filled {
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: var(--dark);
+    }
+    .plan-cta.filled:hover {
+      box-shadow: 0 8px 30px rgba(201,150,58,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-bg {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .testimonial-card {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: var(--gold); }
+
+    .quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial-text {
+      font-size: 0.88rem;
+      color: var(--ink2);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .author-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .author-name { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+    .author-role { font-size: 0.7rem; color: var(--ink3); }
+
+    .stars { color: var(--gold-light); font-size: 0.8rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background-image: url('https://images.unsplash.com/photo-1533628635777-112b2239b1c7?w=1800&q=80');
+      background-size: cover;
+      background-position: center 60%;
+      position: relative;
+    }
+    .cta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,8,5,0.88);
+    }
+
+    .cta-box {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 7rem 4rem;
+    }
+
+    .cta-box .section-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+
+    .cta-form {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-input {
+      flex: 1;
+      padding: 1rem 1.2rem;
+      background: rgba(28,23,16,0.8);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      color: var(--ink);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .cta-input::placeholder { color: var(--ink3); }
+    .cta-input:focus { border-color: var(--gold); }
+
+    .cta-btn {
+      padding: 1rem 1.6rem;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: var(--dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+    }
+    .cta-btn:hover {
+      box-shadow: 0 8px 30px rgba(201,150,58,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      padding: 5rem 4rem 3rem;
+    }
+
+    .footer-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.83rem;
+      color: var(--ink3);
+      line-height: 1.8;
+      margin-top: 1rem;
+      max-width: 280px;
+    }
+
+    .footer-col-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--ink3);
+      margin-bottom: 0.7rem;
+    }
+    .footer-contact-item i { color: var(--gold); width: 14px; }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy { font-size: 0.75rem; color: var(--ink3); }
+
+    .footer-legal {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .footer-legal a {
+      font-size: 0.75rem;
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      z-index: 2;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-content { grid-template-columns: 1fr; padding: 0 1.5rem; padding-top: 5rem; }
+      .hero-right { display: none; }
+      .section { padding: 5rem 1.5rem; }
+      .steps-grid, .features-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .feature-card.wide { grid-column: span 1; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .cta-form { flex-direction: column; }
+      footer { padding: 3rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-logo-mark">N</div>
+      <span class="nav-logo-text">NGAO</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#how">How it Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#stories">Stories</a></li>
+    </ul>
+    <a href="#signup" class="nav-cta">Get Protected</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-photo"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-gold-glow"></div>
+
+    <div class="hero-content">
+      <div>
+        <div class="hero-eyebrow">
+          <div class="hero-dot"></div>
+          AI-Powered · Built for Kenya
+        </div>
+        <h1 class="hero-title heading">
+          Kila biashara<br>inastahili <em>NGAO</em>
+        </h1>
+        <p class="hero-sub">
+          Stop phishing, M-PESA scams, fake KRA emails and supplier fraud before they cost you everything. Built by Kenyans, for Kenyan businesses.
+        </p>
+        <div class="hero-buttons">
+          <a href="#signup" class="btn-primary">Start Free — 30 Days</a>
+          <a href="#how" class="btn-secondary">
+            <i class="fa-solid fa-play" style="font-size:0.7rem; color:var(--gold);"></i>
+            Watch Demo
+          </a>
+        </div>
+        <div class="hero-social-proof">
+          <div class="avatar-stack">
+            <div class="avatar">JM</div>
+            <div class="avatar">AW</div>
+            <div class="avatar">DK</div>
+            <div class="avatar">🇰🇪</div>
+          </div>
+          <div class="proof-text">
+            <p>180+ Kenyan businesses protected</p>
+            <span>★★★★★ 4.98 / 5 average rating</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-city-card">
+          <div class="hero-city-photo"></div>
+          <div class="hero-city-overlay"></div>
+          <div class="hero-city-label">
+            <span>Nairobi, Kenya · Live Protection</span>
+            <p>Silicon Savannah's<br>cybersecurity shield</p>
+          </div>
+        </div>
+        <div class="hero-alert-cards">
+          <div class="alert-card">
+            <div class="alert-card-head">
+              <div class="alert-dot red"></div>
+              <span class="alert-label red">Threat Blocked</span>
+            </div>
+            <p class="alert-text">Fake KRA phishing email intercepted</p>
+            <p class="alert-time">2 seconds ago</p>
+          </div>
+          <div class="alert-card">
+            <div class="alert-card-head">
+              <div class="alert-dot green"></div>
+              <span class="alert-label green">M-PESA Safe</span>
+            </div>
+            <p class="alert-text">SIM-swap attempt stopped in real time</p>
+            <p class="alert-time">14 min ago</p>
+          </div>
+          <div class="alert-card">
+            <div class="alert-card-head">
+              <div class="alert-dot amber"></div>
+              <span class="alert-label amber">Dark Web Alert</span>
+            </div>
+            <p class="alert-text">Staff credential found — reset triggered</p>
+            <p class="alert-time">1 hr ago</p>
+          </div>
+          <div class="alert-card">
+            <div class="alert-card-head">
+              <div class="alert-dot green"></div>
+              <span class="alert-label green">System Secure</span>
+            </div>
+            <p class="alert-text">Risk score: LOW · 18/100 · All clear</p>
+            <p class="alert-time">Now</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item gold">● 8.6 Billion cyber threats hit Kenya in 2025</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">● KES 29.9B lost to cybercrime last year</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item gold">● 96% of Kenyan SMEs have zero cybersecurity</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">● M-PESA fraud up 87% in 2025</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item gold">● Only 1,700 certified cyber experts in Kenya</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">● Average SME loses KES 15,000 per incident</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item gold">● 8.6 Billion cyber threats hit Kenya in 2025</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">● KES 29.9B lost to cybercrime last year</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item gold">● 96% of Kenyan SMEs have zero cybersecurity</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">● M-PESA fraud up 87% in 2025</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item gold">● Only 1,700 certified cyber experts in Kenya</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">● Average SME loses KES 15,000 per incident</span>
+      <span class="ticker-sep">◆</span>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="problem-bg">
+    <div class="problem-bg-overlay"></div>
+    <div class="section problem-inner">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;">
+        <div>
+          <div class="eyebrow">The Reality</div>
+          <h2 class="section-title heading">Hackers target SMEs because you're the <em>easiest target.</em></h2>
+          <p class="section-sub">One wrong click on a fake M-PESA alert or KRA email can empty your accounts in minutes. Most Kenyan businesses have no protection at all.</p>
+          <ul style="margin-top:2rem; display:flex; flex-direction:column; gap:1rem;">
+            <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.85rem; color:var(--ink2);">
+              <i class="fa-solid fa-triangle-exclamation" style="color:var(--amber); margin-top:0.15rem;"></i>
+              62% of SMEs that suffer a breach never fully recover financially
+            </li>
+            <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.85rem; color:var(--ink2);">
+              <i class="fa-solid fa-triangle-exclamation" style="color:var(--amber); margin-top:0.15rem;"></i>
+              Fake KRA & M-PESA phishing emails bypass standard email filters
+            </li>
+            <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.85rem; color:var(--ink2);">
+              <i class="fa-solid fa-triangle-exclamation" style="color:var(--amber); margin-top:0.15rem;"></i>
+              Enterprise security tools cost KES 6.5M+/year — built for big firms only
+            </li>
+          </ul>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">8.6B</div>
+            <div class="stat-label">Cyber threats detected in Kenya (2025)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" style="color:var(--amber);">29.9B</div>
+            <div class="stat-label">KES lost to cybercrime last year</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" style="color:#ef4444;">96%</div>
+            <div class="stat-label">SMEs with zero dedicated security</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" style="color:var(--gold-light);">87%</div>
+            <div class="stat-label">Rise in mobile banking fraud 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div id="how" class="how-bg">
+    <div class="section">
+      <div style="text-align:center; max-width:600px; margin:0 auto;">
+        <div class="eyebrow" style="justify-content:center;">Simple Setup</div>
+        <h2 class="section-title heading">Protected in under <em>48 hours</em></h2>
+        <p class="section-sub" style="margin:0 auto;">No IT team. No complicated setup. NGAO runs itself so you can focus on running your business.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">🔌</div>
+          <div class="step-title heading">Connect</div>
+          <p class="step-desc">Link your email, M-PESA business account, and team WhatsApp. Takes under 5 minutes — no IT expertise needed.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">🧠</div>
+          <div class="step-title heading">NGAO Learns</div>
+          <p class="step-desc">Our AI studies your business patterns within 24 hours. It already knows Kenyan phishing tactics, fake KRA templates, and M-PESA fraud signals out of the box.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">🛡️</div>
+          <div class="step-title heading">Stay Protected</div>
+          <p class="step-desc">Threats are blocked automatically. You get instant WhatsApp alerts. Your security score updates live. You're done.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section">
+      <div style="text-align:center; max-width:600px; margin:0 auto;">
+        <div class="eyebrow" style="justify-content:center;">What You Get</div>
+        <h2 class="section-title heading">Everything your business needs to <em>stay safe</em></h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card wide">
+          <div class="feature-icon">🤖</div>
+          <div class="feature-title heading">AI Threat Monitor</div>
+          <p class="feature-desc">Real-time scanning of all your emails, logins, and network traffic. Trained on Kenyan attack data — catches fake KRA notices, supplier invoice fraud, and business email compromise the moment they arrive.</p>
+          <div class="feature-tags">
+            <span class="tag">24/7 Monitoring</span>
+            <span class="tag">Kenya-trained AI</span>
+            <span class="tag">Zero false positives</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <div class="feature-title heading">M-PESA Fraud Shield</div>
+          <p class="feature-desc">Detects SIM-swap attempts, fake payment requests, and credential theft targeting your mobile money in real time.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <div class="feature-title heading">Staff Training Engine</div>
+          <p class="feature-desc">15-minute weekly modules in Swahili & English. Simulated phishing tests. Reduces human error risk by 61%.</p>
+        </div>
+        <div class="feature-card wide">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title heading">Compliance Dashboard</div>
+          <p class="feature-desc">Auto-generates Kenya Data Protection Act reports, CBK compliance summaries, and audit-ready documentation. One click — done.</p>
+          <div class="feature-tags">
+            <span class="tag">KDPA Ready</span>
+            <span class="tag">CBK Reports</span>
+            <span class="tag">1-Click Export</span>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <div class="feature-title heading">WhatsApp Alerts</div>
+          <p class="feature-desc">Instant threat notifications to your phone via WhatsApp. No app to install. Works on any device.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title heading">Dark Web Watch</div>
+          <p class="feature-desc">Monitors dark web markets for your employees' credentials. Alerts you before attackers can use them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <div id="pricing" class="pricing-section">
+    <div class="pricing-overlay"></div>
+    <div class="section" style="position:relative; z-index:1;">
+      <div style="text-align:center; max-width:600px; margin:0 auto;">
+        <div class="eyebrow" style="justify-content:center;">Pricing</div>
+        <h2 class="section-title heading">Protection every Kenyan<br>business can <em>afford</em></h2>
+        <p class="section-sub" style="margin:0 auto; margin-top:0.5rem;">Pay via M-PESA. No credit card. No contracts. Cancel anytime.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="plan-name">Bora</div>
+          <div class="plan-price">KES 2,500<span>/mo</span></div>
+          <div class="plan-users">Up to 10 users · ~$19/month</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> AI threat monitoring</li>
+            <li><i class="fa-solid fa-check"></i> M-PESA fraud alerts</li>
+            <li><i class="fa-solid fa-check"></i> Weekly phishing simulation</li>
+            <li><i class="fa-solid fa-check"></i> Basic compliance dashboard</li>
+            <li><i class="fa-solid fa-check"></i> WhatsApp + email alerts</li>
+          </ul>
+          <a href="#signup" class="plan-cta outline">Start Free Trial</a>
+        </div>
+        <div class="pricing-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="plan-name">Imara</div>
+          <div class="plan-price">KES 7,500<span>/mo</span></div>
+          <div class="plan-users">Up to 50 users · ~$58/month</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> Everything in Bora</li>
+            <li><i class="fa-solid fa-check"></i> Real-time incident response</li>
+            <li><i class="fa-solid fa-check"></i> Dark web monitoring</li>
+            <li><i class="fa-solid fa-check"></i> Swahili + English training</li>
+            <li><i class="fa-solid fa-check"></i> KDPA compliance reports</li>
+            <li><i class="fa-solid fa-check"></i> Security score dashboard</li>
+          </ul>
+          <a href="#signup" class="plan-cta filled">Start Free Trial</a>
+        </div>
+        <div class="pricing-card">
+          <div class="plan-name">Ngome</div>
+          <div class="plan-price">KES 20,000<span>/mo</span></div>
+          <div class="plan-users">Unlimited users · ~$154/month</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> Everything in Imara</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated virtual CISO</li>
+            <li><i class="fa-solid fa-check"></i> Banking API integrations</li>
+            <li><i class="fa-solid fa-check"></i> Custom threat intelligence</li>
+            <li><i class="fa-solid fa-check"></i> 4-hour incident response SLA</li>
+            <li><i class="fa-solid fa-check"></i> Board-level reporting</li>
+          </ul>
+          <a href="#signup" class="plan-cta outline">Start Free Trial</a>
+        </div>
+      </div>
+      <p style="text-align:center; color:var(--ink3); font-size:0.78rem; margin-top:2rem;">All plans include a 30-day free trial. Pay monthly via M-PESA.</p>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div id="stories" class="testimonials-bg">
+    <div class="section">
+      <div style="text-align:center; max-width:600px; margin:0 auto;">
+        <div class="eyebrow" style="justify-content:center;">Customer Stories</div>
+        <h2 class="section-title heading">Kenyan businesses <em>NGAO has protected</em></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">NGAO blocked a fake KRA email that looked exactly like the real thing. Our accountant almost clicked the link — it would have handed over our entire banking login.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JM</div>
+            <div>
+              <div class="author-name">James Mwangi</div>
+              <div class="author-role">CEO, Savanna Logistics Ltd · Nairobi</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">We're a 12-person team with no IT department. NGAO set itself up in a day and I just get WhatsApp alerts when something is blocked. Exactly what we needed.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AW</div>
+            <div>
+              <div class="author-name">Amina Wanjiku</div>
+              <div class="author-role">Founder, Zuri Fashion House · Mombasa</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">A competitor tried to access our client database using stolen staff credentials. NGAO caught it on the dark web before they could use it. Saved us everything.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">DK</div>
+            <div>
+              <div class="author-name">David Kamau</div>
+              <div class="author-role">MD, Kamau & Associates · Kisumu</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div id="signup" class="cta-section">
+    <div class="cta-overlay"></div>
+    <div class="cta-box">
+      <div class="eyebrow" style="justify-content:center;">Get Started Today</div>
+      <h2 class="section-title heading" style="font-size:clamp(2.5rem,5vw,4rem);">
+        Your business deserves<br>a <em>shield.</em>
+      </h2>
+     <p class="section-sub" style="margin:1.2rem auto 0; text-align:center;">
+  Start your 30-day free trial. No credit card. No IT team. Just protection.</p>
+  
+  <form class="cta-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <div style="display:flex; flex-direction:column; gap:0.75rem; width:100%;">
+      <input  
+        type="email"  
+        name="email"
+        class="cta-input"  
+        placeholder="your@business.co.ke"
+        required>
+      
+      <select  
+        name="package"
+        class="cta-input"
+        required
+        style="cursor:pointer;">
+        <option value="" disabled selected>Select your package</option>
+        <option value="Bora — KES 2,500/mo">Bora — KES 2,500/mo (up to 10 users)</option>
+        <option value="Imara — KES 7,500/mo">Imara — KES 7,500/mo (up to 50 users)</option>
+        <option value="Ngome — KES 20,000/mo">Ngome — KES 20,000/mo (unlimited users)</option>
+      </select>
+      
+      <input
+        type="text"
+        name="business_name"
+        class="cta-input"
+        placeholder="Business name (optional)">
+        
+      <input
+        type="text"
+        name="phone"
+        class="cta-input"
+        placeholder="Phone / WhatsApp number">
+        
+      <button type="submit" class="cta-btn" style="width:100%;">
+        Start Free Trial →
+      </button>
+    </div>
+  </form>
+  <p style="margin-top:1rem; font-size:0.72rem; color:var(--ink3);">Protected by NGAO. Built in Kenya 🇰🇪</p>
+</div>
+</div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="nav-logo">
+          <div class="nav-logo-mark">N</div>
+          <span class="nav-logo-text">NGAO</span>
+        </div>
+        <p class="footer-brand-desc">AI-powered cybersecurity built for Kenya's 7.4 million SMEs. Ngao — Swahili for shield. Protecting the Silicon Savannah.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Product</div>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#how">How it Works</a></li>
+          <li><a href="#">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i> hello@ngao.ke</div>
+        <div class="footer-contact-item"><i class="fa-brands fa-whatsapp"></i> +254 700 723513</div>
+        <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i> Westlands, Nairobi</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 NGAO Security Ltd. All rights reserved. Built in Kenya 🇰🇪</p>
+      <ul class="footer-legal">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
